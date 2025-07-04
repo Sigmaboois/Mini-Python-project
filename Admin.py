@@ -6,6 +6,12 @@ names = []
 file_path = ""
 is_run = False
 
+def file_auto_create():
+    global file_path
+    with open("class.txt","a") as file:
+        file_path = os.path.abspath(file.name)
+    
+
 def add_new_member():
     global file_path
     with open("class.txt", "a") as file:
@@ -22,22 +28,54 @@ def printcontentoffile():
         for line in sorted(file):
             print(line)
 
-def find_user():
-    while True:  # Loop until valid input is received
+def search_for_user():
+    
+    search_for_user = input("What name are u looking for?\n").strip().lower()
+    found = False
+
+    with open(file_path) as file:
+        for line in file:
+            if line.strip().lower() == search_for_user:
+                print(f"Name found: {line.strip()}")
+                found = True
+                break
+        if not found:
+           if not found:
+                print("name not found")
+                prompt_user = input("Would you like to open the file and search manually? (Y or N): ").strip().lower()
+                if prompt_user == "y":
+                    os.startfile(file_path)
+
+def user_prompt():
+    while True:
         try:
-            function_called = int(input("What function do you want? (1 for adding a new member, 2 to see who is in the class)"))
-            if function_called not in [1, 2]:
-                print("Please choose 1 or 2")
+            function_called = int(input(
+                "\nWhat function do you want?\n"
+                "1. Add a new member\n"
+                "2. View class list\n"
+                "3. Search for a member\n"
+                "4. Exit\n"
+                "Enter your choice: "
+            ))
+            if function_called not in range(1, 5):
+                print("Please choose a number between 1 and 4.")
                 continue
             elif function_called == 1:
                 add_new_member()
             elif function_called == 2:
                 printcontentoffile()
-            break  # Exit loop after successful function call
+            elif function_called == 3:
+                search_for_user()
+            elif function_called == 4:
+                print("Exiting program. Goodbye!")
+                sys.exit()
         except ValueError:
-            print("Only integers are allowed nothing else")
+            print("Only integers are allowed.")
+
+
 def main():
-    find_user()
+    file_auto_create()
+    user_prompt()
 
 if __name__ == "__main__":
     main()
