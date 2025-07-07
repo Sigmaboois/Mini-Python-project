@@ -1,6 +1,7 @@
 # Admin Application
 import os
 import sys
+import time
 
 names = []
 file_path = ""
@@ -71,8 +72,7 @@ def user_prompt():
                 sys.exit()
         except ValueError:
             print("Only integers are allowed.")
-
-
+    
 def main():
     file_auto_create()
     user_prompt()
