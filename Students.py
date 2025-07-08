@@ -37,5 +37,3 @@ def apply():
     print("\n")
     print(f"Full Legal Name: {parent_name}")
     
-
-def see_available_classes():
